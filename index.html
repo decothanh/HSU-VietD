@@ -11,26 +11,21 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Chosen Palette: Corporate Trust & Growth 
-         Background: Slate-50 (Neutral Professional)
-         Primary: Blue-900 (Deep Corporate Blue - Trust)
-         Secondary: Emerald-600 (Growth/Profit)
-         Accent: Amber-500 (Highlights/Attention)
-    -->
+    <!-- Theme Config -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        primary: '#1e3a8a', // blue-900
-                        secondary: '#059669', // emerald-600
-                        accent: '#d97706', // amber-600
+                        hsu: { blue: '#002060', gold: '#d97706' },
+                        vietd: { tech: '#0ea5e9' }
                     }
                 }
             }
@@ -38,638 +33,321 @@
     </script>
 
     <style>
-        /* Chart Container Styling - MANDATORY for responsiveness */
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px; /* Max width to prevent stretching on large screens */
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px; /* Base height */
-            max-height: 400px;
-        }
-        
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-
-        /* Custom Scrollbar for clean look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin: 0 auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .logo-container:hover { transform: scale(1.05); transition: transform 0.3s ease; }
+        .logo-img { height: 60px; width: auto; object-fit: contain; }
     </style>
-
-    <!-- Application Structure Plan: 
-         1. Header: Clear title and partnership context.
-         2. Methodology Section: Interactive cards explaining the 3 core principles (Safety, Scale, Competition).
-         3. Program & Roles: Overview of the Mini MBA and split responsibilities.
-         4. Interactive Pricing Dashboard (The Core):
-            - Tier Selector (20/30/40 students).
-            - Marketing Scenario Toggle (Safe 15% vs Optimized 8%).
-            - Dynamic Metrics Cards (Revenue, Cost, Profit).
-            - Visualizations: P&L Bar Chart & Cost Breakdown Doughnut.
-         5. Economy of Scale Analysis: Line chart showing decreasing cost per student.
-         6. Operational Roadmap: Timeline and terms.
-         
-         Rationale: The structure moves from "Why" (Methodology) to "How" (Roles) to "How Much" (Financials), giving HSU leaders a logical flow to make a decision.
-    -->
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased font-sans">
 
     <!-- HEADER -->
-    <header class="bg-primary text-white shadow-lg">
-        <div class="container mx-auto px-4 py-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <h1 class="text-2xl md:text-3xl font-bold">Hồ Sơ Đề Xuất Hợp Tác Chiến Lược</h1>
-                    <p class="text-blue-200 mt-2">Dự án: Mini MBA Thực Chiến - Tích Hợp AI & Quản Trị Toàn Diện</p>
+    <header class="bg-hsu-blue text-white shadow-xl border-b-4 border-hsu-gold sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left flex-1">
+                <div class="flex items-center justify-center md:justify-start gap-3">
+                    <h1 class="text-2xl font-bold uppercase tracking-wide">Hồ Sơ Hợp Tác Chiến Lược</h1>
+                    <span class="bg-hsu-gold text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider shadow-sm animate-pulse">
+                        <i class="fa-solid fa-star mr-1"></i> Độc Quyền 2026
+                    </span>
                 </div>
-                <div class="text-right hidden md:block">
-                    <div class="text-sm opacity-80">Đơn vị đề xuất</div>
-                    <div class="text-xl font-bold">Viện VietD</div>
-                </div>
+                <p class="text-blue-200 mt-1 text-sm flex items-center justify-center md:justify-start">
+                    <i class="fa-solid fa-handshake mr-2"></i> Dự án: Mini MBA Thực Chiến & Ứng Dụng AI
+                </p>
+            </div>
+            <div class="flex items-center space-x-6 bg-white rounded-lg px-6 py-2 shadow-lg">
+                <a href="#" class="logo-container"><img src="https://vietd.edu.vn/wp-content/uploads/2023/10/Logo-VietD-1.png" alt="VietD" class="logo-img" onerror="this.style.display='none'"></a>
+                <div class="text-slate-300 font-light text-2xl">✕</div>
+                <a href="#" class="logo-container"><img src="https://www.hoasen.edu.vn/wp-content/uploads/2020/12/logo-hsu.png" alt="HSU" class="logo-img" onerror="this.style.display='none'"></a>
             </div>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 space-y-12">
+    <main class="container mx-auto px-4 py-10 space-y-10">
 
-        <!-- INTRO & METHODOLOGY -->
-        <section>
-            <div class="max-w-4xl mx-auto text-center mb-10">
-                <h2 class="text-2xl font-bold text-slate-800 mb-4">Phương Pháp Luận Báo Giá</h2>
-                <p class="text-slate-600">
-                    Cấu trúc tài chính được xây dựng dựa trên 3 nguyên tắc cốt lõi nhằm đảm bảo 
-                    <strong>An toàn vốn</strong>, tận dụng <strong>Lợi thế quy mô</strong> và tối ưu hóa <strong>Vị thế cạnh tranh</strong>.
+        <!-- EXECUTIVE SUMMARY -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-hsu-blue hover:shadow-xl transition-all group">
+                <div class="flex items-center mb-3">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-hsu-blue mr-3 group-hover:bg-blue-600 group-hover:text-white transition-colors"><i class="fa-solid fa-percent"></i></div>
+                    <h3 class="font-bold text-hsu-blue">Chia Sẻ Linh Hoạt</h3>
+                </div>
+                <p class="text-sm text-slate-600">
+                    <span class="font-bold text-blue-600">Tier 1:</span> VietD 60%<br>
+                    <span class="font-bold text-blue-600">Tier 2:</span> VietD 50%<br>
+                    <span class="font-bold text-emerald-600">Tier 3:</span> VietD 40% (Ưu đãi tối đa)
                 </p>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-blue-500 hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">🛡️</div>
-                    <h3 class="text-lg font-bold text-primary mb-2">Bảo Toàn Vốn</h3>
-                    <p class="text-sm text-slate-600">Đảm bảo HSU không chịu lỗ ngay cả ở mức sĩ số tối thiểu (20 HV). Cấu trúc chi phí linh hoạt bảo vệ dòng tiền.</p>
+            <!-- Card 2 -->
+            <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-hsu-gold hover:shadow-xl transition-all group">
+                <div class="flex items-center mb-3">
+                    <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-hsu-gold mr-3 group-hover:bg-hsu-gold group-hover:text-white transition-colors"><i class="fa-solid fa-layer-group"></i></div>
+                    <h3 class="font-bold text-hsu-blue">Sĩ Số Linh Hoạt</h3>
                 </div>
-                <!-- Card 2 -->
-                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-emerald-500 hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">📈</div>
-                    <h3 class="text-lg font-bold text-primary mb-2">Lợi Thế Quy Mô</h3>
-                    <p class="text-sm text-slate-600">Mô hình <strong>Giá Bậc Thang</strong>. Tuyển sinh càng đông, giá vốn bình quân càng giảm, biên lợi nhuận HSU càng tăng.</p>
+                <p class="text-sm text-slate-600">3 Mức Tier mới: <strong>15 - 20 - 25+ HV</strong>. Dễ dàng mở lớp, giảm áp lực tuyển sinh ban đầu.</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-emerald-500 hover:shadow-xl transition-all group">
+                <div class="flex items-center mb-3">
+                    <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mr-3 group-hover:bg-emerald-500 group-hover:text-white transition-colors"><i class="fa-solid fa-shield-heart"></i></div>
+                    <h3 class="font-bold text-hsu-blue">An Toàn Vốn</h3>
                 </div>
-                <!-- Card 3 -->
-                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-accent hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">🏆</div>
-                    <h3 class="text-lg font-bold text-primary mb-2">Định Vị Cạnh Tranh</h3>
-                    <p class="text-sm text-slate-600">Giá bán lẻ <strong>40tr/HV</strong> cạnh tranh trực tiếp với FSB, UEH nhờ tích hợp công nghệ AI và Business Simulation độc quyền.</p>
-                </div>
+                <p class="text-sm text-slate-600">HSU vẫn lãi <strong>10-20%</strong> ngay cả ở mức sĩ số thấp. Cam kết không rủi ro tài chính.</p>
             </div>
         </section>
 
-        <!-- PROGRAM & ROLES -->
-        <section class="bg-white rounded-2xl shadow-sm p-8">
-            <h2 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Tổng Quan & Phân Chia Vai Trò</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <!-- Program Info -->
-                <div>
-                    <h3 class="text-lg font-bold text-primary mb-4">Chương Trình Mini MBA with AI</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <span class="mr-2 text-secondary">✓</span>
-                            <span><strong>Thời lượng:</strong> 12 ngày (Bootcamp tập trung).</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-2 text-secondary">✓</span>
-                            <span><strong>Hình thức:</strong> Thực hành 70% trên hệ thống Giả lập Kinh doanh (Simulation).</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-2 text-secondary">✓</span>
-                            <span><strong>Đối tượng:</strong> Chủ SME, C-Level, Quản lý cấp trung.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="mr-2 text-secondary">✓</span>
-                            <span><strong>Giá bán tham chiếu:</strong> 40.000.000 VNĐ / Học viên.</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Roles Table -->
-                <div class="bg-slate-50 rounded-lg p-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="font-bold text-primary mb-2 flex items-center">
-                                <span class="text-xl mr-2">🎓</span> Viện VietD
-                            </div>
-                            <div class="text-xs font-semibold text-slate-500 uppercase mb-2">Chuyên Môn & Công Nghệ</div>
-                            <ul class="text-sm space-y-2 text-slate-700">
-                                <li>• Nội dung độc quyền</li>
-                                <li>• Chuyên gia & Trợ giảng</li>
-                                <li>• Hệ thống AI & Simulation</li>
-                                <li>• Đảm bảo chất lượng đầu ra</li>
-                            </ul>
-                        </div>
-                        <div class="border-l border-slate-200 pl-4">
-                            <div class="font-bold text-primary mb-2 flex items-center">
-                                <span class="text-xl mr-2">🏛️</span> Đại Học Hoa Sen
-                            </div>
-                            <div class="text-xs font-semibold text-slate-500 uppercase mb-2">Thương Hiệu & Thương Mại</div>
-                            <ul class="text-sm space-y-2 text-slate-700">
-                                <li>• Pháp lý & Chứng nhận</li>
-                                <li>• Tuyển sinh & Marketing</li>
-                                <li>• Cơ sở vật chất & Hậu cần</li>
-                                <li>• Quyết định giá bán cuối</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- INTERACTIVE FINANCIAL DASHBOARD -->
-        <section id="dashboard" class="bg-slate-900 text-white rounded-2xl shadow-xl overflow-hidden">
-            <div class="p-8 border-b border-slate-700">
-                <h2 class="text-2xl font-bold text-white mb-2">Bảng Tính Hiệu Quả Kinh Doanh (Interactive P&L)</h2>
-                <p class="text-slate-400 text-sm">Điều chỉnh các tham số bên dưới để xem sự thay đổi về lợi nhuận và chi phí.</p>
+        <!-- DASHBOARD -->
+        <section class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+            <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                <h2 class="text-lg font-bold text-slate-800 flex items-center"><i class="fa-solid fa-chart-pie mr-2 text-hsu-blue"></i> Phân Tích Hiệu Quả Kinh Doanh</h2>
             </div>
 
-            <!-- Controls -->
-            <div class="bg-slate-800 p-6 flex flex-col md:flex-row justify-between items-center gap-6">
-                
-                <!-- Tier Selector -->
-                <div class="w-full md:w-1/2">
-                    <label class="block text-sm font-medium text-slate-300 mb-3">Chọn Quy Mô Lớp Học (Sĩ Số)</label>
-                    <div class="grid grid-cols-3 gap-2">
-                        <button onclick="updateDashboard(20)" id="btn-tier-20" class="tier-btn py-3 px-4 rounded-lg font-bold text-center transition-all bg-slate-700 hover:bg-slate-600 border border-transparent">
-                            TIER 1<br><span class="text-xs font-normal opacity-80">20 Học viên</span>
-                        </button>
-                        <button onclick="updateDashboard(30)" id="btn-tier-30" class="tier-btn py-3 px-4 rounded-lg font-bold text-center transition-all bg-primary border-2 border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-                            TIER 2<br><span class="text-xs font-normal opacity-80">30 Học viên</span>
-                        </button>
-                        <button onclick="updateDashboard(40)" id="btn-tier-40" class="tier-btn py-3 px-4 rounded-lg font-bold text-center transition-all bg-slate-700 hover:bg-slate-600 border border-transparent">
-                            TIER 3<br><span class="text-xs font-normal opacity-80">40 Học viên</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Scenario Selector -->
-                <div class="w-full md:w-1/3 bg-slate-700/50 p-4 rounded-lg border border-slate-600">
-                    <label class="block text-sm font-medium text-slate-300 mb-3">Kịch Bản Marketing</label>
-                    <div class="flex items-center space-x-4">
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="mkt-scenario" value="15" onchange="updateScenario()" checked class="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300">
-                            <span class="ml-2 text-sm text-slate-200">An toàn (15%)</span>
-                        </label>
-                        <label class="flex items-center cursor-pointer">
-                            <input type="radio" name="mkt-scenario" value="8" onchange="updateScenario()" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500 border-gray-300">
-                            <span class="ml-2 text-sm text-emerald-400 font-bold">Tối ưu (8%)</span>
-                        </label>
-                    </div>
-                    <p id="scenario-desc" class="text-xs text-slate-400 mt-2 italic">Dựa trên chạy quảng cáo trả phí hoàn toàn.</p>
-                </div>
-            </div>
-
-            <!-- Dashboard Content -->
-            <div class="p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-                
-                <!-- Left: Big Metrics -->
+            <div class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Controls Side -->
                 <div class="lg:col-span-4 space-y-6">
-                    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
-                        <div class="text-slate-400 text-sm mb-1">Tổng Doanh Thu HSU</div>
-                        <div id="metric-revenue" class="text-3xl font-bold text-white">1.2 Tỷ VNĐ</div>
-                        <div class="text-xs text-slate-500 mt-1">40tr x <span id="metric-students">30</span> HV</div>
-                    </div>
-
-                    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
-                        <div class="text-slate-400 text-sm mb-1">Chi Phí Trả VietD (Trọn gói)</div>
-                        <div id="metric-vietd-cost" class="text-2xl font-bold text-blue-300">600 Triệu VNĐ</div>
-                        <div class="text-xs text-blue-400/60 mt-1">Chiếm <span id="metric-vietd-percent">50</span>% doanh thu</div>
-                    </div>
-
-                    <div class="bg-gradient-to-r from-emerald-900 to-slate-800 p-6 rounded-xl border border-emerald-700 shadow-lg">
-                        <div class="text-emerald-200 text-sm mb-1 font-semibold">LỢI NHUẬN RÒNG HSU</div>
-                        <div id="metric-net-profit" class="text-4xl font-bold text-emerald-400">300 Triệu</div>
-                        <div class="flex items-center mt-2">
-                            <span id="metric-margin" class="bg-emerald-900 text-emerald-300 text-xs px-2 py-1 rounded font-bold">Margin: 25%</span>
-                            <span class="text-xs text-emerald-200/60 ml-2 italic" id="profit-note">Hiệu quả tốt</span>
+                    <!-- Tier Selector -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Chọn Quy Mô Lớp (Sĩ Số)</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="updateDashboard(15)" id="btn-tier-15" class="tier-btn py-3 px-2 rounded-lg border text-center transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:shadow-sm">
+                                <div class="text-sm font-bold">Tier 1</div>
+                                <div class="text-xs font-normal opacity-80">15 HV</div>
+                            </button>
+                            <button onclick="updateDashboard(20)" id="btn-tier-20" class="tier-btn py-3 px-2 rounded-lg border text-center transition-all bg-hsu-blue text-white border-hsu-blue shadow-md transform scale-105 ring-2 ring-blue-300">
+                                <div class="text-sm font-bold">Tier 2</div>
+                                <div class="text-xs font-normal opacity-90">20 HV</div>
+                            </button>
+                            <button onclick="updateDashboard(25)" id="btn-tier-25" class="tier-btn py-3 px-2 rounded-lg border text-center transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:shadow-sm">
+                                <div class="text-sm font-bold">Tier 3</div>
+                                <div class="text-xs font-normal opacity-80">25+ HV</div>
+                            </button>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Right: Visualizations -->
-                <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Bar Chart: Revenue Breakdown -->
-                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
-                        <h4 class="text-sm font-semibold text-slate-300 mb-4 text-center">Phân Bổ Doanh Thu</h4>
-                        <div class="chart-container" style="height: 250px;">
-                            <canvas id="profitChart"></canvas>
-                        </div>
+                        <p class="text-xs text-slate-400 mt-2 italic">* Giá bán lẻ: 35.000.000 VNĐ/HV</p>
                     </div>
                     
-                    <!-- Line Chart: Economy of Scale -->
-                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
-                        <h4 class="text-sm font-semibold text-slate-300 mb-4 text-center">Lợi Thế Quy Mô: Giá Vốn/HV</h4>
-                        <div class="chart-container" style="height: 250px;">
-                            <canvas id="scaleChart"></canvas>
+                    <!-- Marketing Scenario -->
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-3 tracking-wider">Kịch Bản Marketing</label>
+                        <div class="flex flex-col gap-3">
+                            <label class="flex items-center cursor-pointer group">
+                                <input type="radio" name="mkt" value="15" checked onchange="updateScenario()" class="w-4 h-4 text-hsu-blue focus:ring-hsu-blue border-gray-300"> 
+                                <span class="ml-2 text-sm font-medium text-slate-700 group-hover:text-hsu-blue transition-colors">An toàn (15%)</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer group">
+                                <input type="radio" name="mkt" value="8" onchange="updateScenario()" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500 border-gray-300"> 
+                                <span class="ml-2 text-sm font-medium text-emerald-700 font-bold group-hover:text-emerald-600 transition-colors flex items-center">
+                                    <i class="fa-solid fa-rocket mr-1"></i> Tối ưu (8%)
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Total Revenue Box -->
+                    <div class="p-5 bg-gradient-to-r from-blue-50 to-white rounded-lg border border-blue-100 shadow-sm">
+                        <div class="text-xs text-blue-800 font-bold uppercase mb-1 tracking-wider">Tổng Doanh Thu HSU</div>
+                        <div id="val-revenue" class="text-3xl font-bold text-hsu-blue">700 Triệu</div>
+                    </div>
+                </div>
+
+                <!-- Main Chart -->
+                <div class="lg:col-span-5 flex flex-col justify-center">
+                    <h4 class="text-center text-xs font-bold text-slate-400 uppercase mb-4 tracking-wider">Phân Bổ Dòng Tiền (VNĐ)</h4>
+                    <div class="chart-container">
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Key Result Side -->
+                <div class="lg:col-span-3 flex flex-col justify-center space-y-4">
+                    <!-- Net Profit Card -->
+                    <div class="bg-gradient-to-br from-emerald-50 to-white p-6 rounded-xl border border-emerald-200 text-center shadow-sm">
+                        <div class="text-emerald-600 text-xs font-bold uppercase mb-2 tracking-wider">Lợi Nhuận Ròng HSU</div>
+                        <div id="val-profit" class="text-3xl font-bold text-emerald-600 mb-2">140 Triệu</div>
+                        <div class="inline-block bg-white px-3 py-1 rounded-full text-xs font-bold text-emerald-700 shadow-sm border border-emerald-100">
+                            Margin: <span id="val-margin">20</span>%
+                        </div>
+                        <p class="text-xs text-slate-500 mt-3 italic" id="val-note">Đã trừ hết chi phí VietD, Marketing & Vận hành.</p>
+                    </div>
+                    
+                    <!-- Dynamic VietD Cost Box -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                        <div class="text-slate-500 text-xs font-bold uppercase mb-1 tracking-wider">Chi Phí Trả VietD (COGS)</div>
+                        <div id="val-vietd" class="text-xl font-bold text-vietd-tech">350 Triệu</div>
+                        <div class="text-xs text-slate-400 mt-1 flex justify-center items-center">
+                            Tỷ lệ: <span id="val-vietd-rate" class="font-bold ml-1">50</span>% 
+                            <span id="rate-badge" class="ml-2 px-1.5 py-0.5 rounded text-[10px] bg-green-100 text-green-700 font-bold hidden">ƯU ĐÃI</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Insight Box -->
-            <div class="bg-blue-900/30 border-t border-slate-700 p-4 text-center">
-                <p id="insight-text" class="text-blue-200 text-sm">
-                    💡 <strong>Insight:</strong> Tại mức sĩ số này, chi phí bình quân mỗi học viên là <strong>20 Triệu</strong>. HSU có biên độ lợi nhuận an toàn để đầu tư mạnh cho chất lượng dịch vụ.
-                </p>
-            </div>
         </section>
 
-        <!-- DETAILED ANALYSIS TABLES -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            <!-- Economy of Scale Explanation -->
-            <div class="bg-white rounded-xl shadow-sm p-6 border border-slate-100">
-                <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center">
-                    <span class="bg-blue-100 text-blue-800 p-2 rounded-lg mr-3 text-lg">📊</span>
-                    Cơ Chế Giá Bậc Thang
-                </h3>
-                <p class="text-sm text-slate-600 mb-6">
-                    VietD cam kết chia sẻ lợi nhuận từ việc tối ưu vận hành. Sĩ số lớp càng cao, chi phí cố định (Giảng viên, IP) được chia nhỏ, giúp đơn giá nhập vào của HSU giảm sâu.
-                </p>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left">
-                        <thead class="bg-slate-50 text-slate-500 font-bold">
-                            <tr>
-                                <th class="p-3 rounded-l-lg">Cấp độ (Tier)</th>
-                                <th class="p-3">Sĩ Số</th>
-                                <th class="p-3">Tổng Phí VietD</th>
-                                <th class="p-3 text-right rounded-r-lg">Giá Vốn/HV</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100">
-                            <tr class="hover:bg-slate-50 transition-colors cursor-pointer" onclick="updateDashboard(20)">
-                                <td class="p-3 font-semibold text-slate-700">Tier 1</td>
-                                <td class="p-3 text-slate-600">20 HV</td>
-                                <td class="p-3 text-slate-600">480 Triệu</td>
-                                <td class="p-3 text-right font-bold text-accent">24.0 Triệu</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors cursor-pointer bg-blue-50/50" onclick="updateDashboard(30)">
-                                <td class="p-3 font-semibold text-primary">Tier 2</td>
-                                <td class="p-3 text-slate-600">30 HV</td>
-                                <td class="p-3 text-slate-600">600 Triệu</td>
-                                <td class="p-3 text-right font-bold text-secondary">20.0 Triệu</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors cursor-pointer" onclick="updateDashboard(40)">
-                                <td class="p-3 font-semibold text-slate-700">Tier 3</td>
-                                <td class="p-3 text-slate-600">40 HV</td>
-                                <td class="p-3 text-slate-600">680 Triệu</td>
-                                <td class="p-3 text-right font-bold text-emerald-600">17.0 Triệu ▼</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Optimization Opportunity -->
-            <div class="bg-white rounded-xl shadow-sm p-6 border border-slate-100">
-                <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center">
-                    <span class="bg-emerald-100 text-emerald-800 p-2 rounded-lg mr-3 text-lg">🚀</span>
-                    Tiềm Năng Tối Ưu Lợi Nhuận
-                </h3>
-                <p class="text-sm text-slate-600 mb-4">
-                    Nếu HSU tận dụng tốt tệp <strong>Cựu sinh viên (Alumni)</strong> và <strong>Doanh nghiệp đối tác</strong> (kênh Marketing 0 đồng), chi phí Marketing có thể giảm từ 15% xuống 8%.
-                </p>
-                
-                <div class="bg-emerald-50 rounded-lg p-5 border border-emerald-100">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-sm font-semibold text-emerald-800">Lợi nhuận tăng thêm (Tier 3)</span>
-                        <span class="text-lg font-bold text-emerald-600">+112 Triệu VNĐ</span>
-                    </div>
-                    <div class="w-full bg-emerald-200 rounded-full h-2 mb-4">
-                        <div class="bg-emerald-500 h-2 rounded-full" style="width: 100%"></div>
-                    </div>
-                    <p class="text-xs text-emerald-700 italic">
-                        "Biến tài nguyên vô hình (Data, Brand) thành lợi nhuận thực tế."
-                    </p>
-                </div>
-                
-                <div class="mt-6 flex space-x-2">
-                    <button onclick="document.querySelector('input[value=8]').click(); document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'})" class="flex-1 bg-white border border-emerald-500 text-emerald-600 py-2 px-4 rounded-lg text-sm font-semibold hover:bg-emerald-50 transition-colors">
-                        Xem Kịch Bản Tối Ưu
-                    </button>
-                    <button onclick="document.querySelector('input[value=15]').click(); document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'})" class="flex-1 bg-white border border-slate-300 text-slate-600 py-2 px-4 rounded-lg text-sm font-semibold hover:bg-slate-50 transition-colors">
-                        Xem Kịch Bản An Toàn
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- TERMS & NEXT STEPS -->
-        <section class="bg-slate-100 rounded-xl p-8 border-t-4 border-slate-300">
-            <h2 class="text-xl font-bold text-slate-800 mb-4">Điều Khoản Áp Dụng & Bước Tiếp Theo</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-                <div>
-                    <h4 class="font-bold text-slate-700 mb-2">1. Chốt Sĩ Số</h4>
-                    <p class="text-slate-600">Danh sách học viên chính thức và Tier phí áp dụng sẽ được chốt trước ngày khai giảng <strong>03 ngày</strong>.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-slate-700 mb-2">2. Thanh Toán</h4>
-                    <p class="text-slate-600">Đợt 1: 50% giá trị Tier 1 khi ký HĐ.<br>Đợt 2: Tất toán theo thực tế sau khi kết thúc khóa học 05 ngày.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-slate-700 mb-2">3. Cam Kết</h4>
-                    <p class="text-slate-600">Lớp dưới 20 HV sẽ được thỏa thuận riêng hoặc bảo lưu. HSU chịu trách nhiệm tuyển sinh, VietD chịu trách nhiệm chuyên môn.</p>
-                </div>
-            </div>
-        </section>
+        <!-- FOOTER -->
+        <footer class="text-center text-xs text-slate-400 border-t pt-6 pb-6">
+            &copy; 2026 Viện VietD. Tài liệu lưu hành nội bộ - Bảo mật.
+        </footer>
 
     </main>
 
-    <footer class="bg-slate-800 text-slate-400 py-8 text-center text-sm">
-        <p>&copy; 2024 Viện VietD - Tài liệu Đề Xuất Hợp Tác Chiến Lược.</p>
-    </footer>
-
     <!-- LOGIC SCRIPT -->
     <script>
-        // --- DATA MODEL ---
+        // DATA MODEL - UPDATED TIERS (15, 20, 25) & PRICE (35M)
         const tiers = {
-            20: { students: 20, vietdFee: 480000000, label: "Tier 1" },
-            30: { students: 30, vietdFee: 600000000, label: "Tier 2" },
-            40: { students: 40, vietdFee: 680000000, label: "Tier 3" }
+            15: { students: 15 },
+            20: { students: 20 },
+            25: { students: 25 }
         };
+        const PRICE = 35000000;
+        // Logic: <= 15 students -> 60%, 20 students -> 50%, >= 25 students -> 40%
+        const OPS_RATE = 0.10;
+        const RESERVE_RATE = 0.05; // Slightly reduced reserve for calculation purposes
 
-        const tuitionFee = 40000000; // 40M VND per student
-        const opsRate = 0.10; // 10% for Operations
+        let currentTier = 20; // Default start at Tier 2
+        let mktRate = 0.15;
+        let myChart = null;
 
-        // State
-        let currentTier = 30;
-        let mktRate = 0.15; // Default 15%
-
-        // Chart Instances
-        let profitChartInstance = null;
-        let scaleChartInstance = null;
-
-        // --- CORE FUNCTIONS ---
-
-        function formatCurrency(num) {
-            if (num >= 1000000000) {
-                return (num / 1000000000).toFixed(1) + " Tỷ";
-            } else {
-                return (num / 1000000).toFixed(0) + " Triệu";
-            }
+        function format(n) {
+            if (n >= 1000000000) return (n/1000000000).toFixed(2) + " Tỷ";
+            return (n/1000000).toFixed(1).replace('.0', '') + " Triệu";
         }
 
-        function calculateFinancials() {
-            const data = tiers[currentTier];
-            const revenue = data.students * tuitionFee;
-            const vietdCost = data.vietdFee;
-            const mktCost = revenue * mktRate;
-            const opsCost = revenue * opsRate;
-            const totalCost = vietdCost + mktCost + opsCost;
-            const netProfit = revenue - totalCost;
-            const margin = (netProfit / revenue) * 100;
-            const costPerStudent = vietdCost / data.students;
-
-            return { revenue, vietdCost, mktCost, opsCost, totalCost, netProfit, margin, costPerStudent, students: data.students };
+        function calc() {
+            let s = tiers[currentTier].students;
+            // DYNAMIC RATE LOGIC: 60% - 50% - 40%
+            let vietdRate = 0.60; // Default Tier 1 (15 students)
+            if (s === 20) vietdRate = 0.50; // Tier 2 (20 students)
+            if (s >= 25) vietdRate = 0.40; // Tier 3 (25+ students)
+            
+            let rev = s * PRICE;
+            let costVietD = rev * vietdRate;
+            let costMkt = rev * mktRate;
+            let costOps = rev * OPS_RATE;
+            let costRes = rev * RESERVE_RATE;
+            // Profit is remainder
+            let profit = rev - costVietD - costMkt - costOps - costRes;
+            
+            return { rev, costVietD, costMkt, costOps, costRes, profit, vietdRate };
         }
 
-        // --- UI UPDATES ---
+        function updateDashboard(t) {
+            if(t) currentTier = t;
+            let d = calc();
 
-        function updateTierButtons() {
-            // Reset all buttons
-            [20, 30, 40].forEach(t => {
-                const btn = document.getElementById(`btn-tier-${t}`);
-                if (t === currentTier) {
-                    btn.className = "tier-btn py-3 px-4 rounded-lg font-bold text-center transition-all bg-primary border-2 border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.5)] transform scale-105";
-                    btn.innerHTML = `TIER ${t === 20 ? 1 : t === 30 ? 2 : 3}<br><span class="text-xs font-normal opacity-80">${t} Học viên</span> <span class="block text-xs text-blue-200 mt-1">✓ Chọn</span>`;
+            // Update Buttons Styling
+            [15,20,25].forEach(tier => {
+                let btn = document.getElementById(`btn-tier-${tier}`);
+                if(tier === currentTier) {
+                    btn.className = "tier-btn py-3 px-2 rounded-lg border text-center transition-all bg-hsu-blue text-white border-hsu-blue shadow-md transform scale-105 ring-2 ring-blue-300";
                 } else {
-                    btn.className = "tier-btn py-3 px-4 rounded-lg font-bold text-center transition-all bg-slate-700 hover:bg-slate-600 border border-transparent opacity-70 hover:opacity-100";
-                    btn.innerHTML = `TIER ${t === 20 ? 1 : t === 30 ? 2 : 3}<br><span class="text-xs font-normal opacity-80">${t} Học viên</span>`;
-                }
-            });
-        }
-
-        function updateScenarioText() {
-            const desc = document.getElementById('scenario-desc');
-            if (mktRate === 0.15) {
-                desc.textContent = "Dựa trên chạy quảng cáo trả phí hoàn toàn (Kịch bản thận trọng).";
-                desc.className = "text-xs text-slate-400 mt-2 italic";
-            } else {
-                desc.textContent = "Tận dụng Data cũ & Alumni. Tối ưu chi phí quảng cáo (Kịch bản tối ưu).";
-                desc.className = "text-xs text-emerald-400 mt-2 italic font-semibold";
-            }
-        }
-
-        function updateMetrics(fin) {
-            document.getElementById('metric-revenue').textContent = formatCurrency(fin.revenue) + " VNĐ";
-            document.getElementById('metric-students').textContent = fin.students;
-            document.getElementById('metric-vietd-cost').textContent = formatCurrency(fin.vietdCost) + " VNĐ";
-            document.getElementById('metric-vietd-percent').textContent = ((fin.vietdCost / fin.revenue) * 100).toFixed(0);
-            
-            const profitEl = document.getElementById('metric-net-profit');
-            profitEl.textContent = formatCurrency(fin.netProfit);
-            
-            const marginEl = document.getElementById('metric-margin');
-            marginEl.textContent = `Margin: ${fin.margin.toFixed(1)}%`;
-            
-            // Color coding for profit
-            if (fin.margin < 20) {
-                profitEl.className = "text-4xl font-bold text-yellow-400";
-                marginEl.className = "bg-yellow-900 text-yellow-300 text-xs px-2 py-1 rounded font-bold";
-                document.getElementById('profit-note').textContent = "An toàn, nhưng cần tăng sĩ số";
-            } else if (fin.margin < 30) {
-                profitEl.className = "text-4xl font-bold text-emerald-400";
-                marginEl.className = "bg-emerald-900 text-emerald-300 text-xs px-2 py-1 rounded font-bold";
-                document.getElementById('profit-note').textContent = "Hiệu quả tốt";
-            } else {
-                profitEl.className = "text-4xl font-bold text-emerald-300 text-shadow";
-                marginEl.className = "bg-emerald-800 text-white text-xs px-2 py-1 rounded font-bold border border-emerald-400";
-                document.getElementById('profit-note').textContent = "Lợi nhuận xuất sắc!";
-            }
-
-            // Insight Text Update
-            const insight = document.getElementById('insight-text');
-            if (fin.students === 20) {
-                insight.innerHTML = `💡 <strong>An toàn vốn:</strong> Mặc dù sĩ số thấp nhất, HSU vẫn giữ lại được <strong>${formatCurrency(fin.netProfit)}</strong> lợi nhuận ròng.`;
-            } else if (fin.students === 30) {
-                insight.innerHTML = `💡 <strong>Điểm ngọt (Sweet Spot):</strong> Chi phí bình quân giảm xuống <strong>20 Triệu/HV</strong>. Lợi nhuận HSU tăng gấp đôi so với Tier 1.`;
-            } else {
-                insight.innerHTML = `💡 <strong>Tối đa hóa:</strong> Chi phí bình quân chạm đáy <strong>17 Triệu/HV</strong>. Mỗi học viên tăng thêm mang về gần như 100% lợi nhuận thuần.`;
-            }
-        }
-
-        // --- CHART FUNCTIONS ---
-
-        function initCharts() {
-            const ctxProfit = document.getElementById('profitChart').getContext('2d');
-            const ctxScale = document.getElementById('scaleChart').getContext('2d');
-
-            // 1. Profit Bar Chart (Stacked or Grouped)
-            profitChartInstance = new Chart(ctxProfit, {
-                type: 'bar',
-                data: {
-                    labels: ['Doanh Thu', 'Chi Phí'],
-                    datasets: []
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { color: '#cbd5e1' } },
-                        tooltip: { 
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + formatCurrency(context.raw);
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: { 
-                            ticks: { color: '#94a3b8', callback: function(value) { return value/1000000 + 'M'; } },
-                            grid: { color: '#334155' } 
-                        },
-                        x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
-                    }
+                    btn.className = "tier-btn py-3 px-2 rounded-lg border text-center transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:shadow-sm";
                 }
             });
 
-            // 2. Scale Line Chart
-            scaleChartInstance = new Chart(ctxScale, {
-                type: 'line',
+            // Update Text Values
+            document.getElementById('val-revenue').innerText = format(d.rev) + " VNĐ";
+            document.getElementById('val-profit').innerText = format(d.profit);
+            document.getElementById('val-margin').innerText = ((d.profit/d.rev)*100).toFixed(1);
+            
+            // Update VietD Cost Box & Badge
+            document.getElementById('val-vietd').innerText = format(d.costVietD);
+            document.getElementById('val-vietd-rate').innerText = (d.vietdRate * 100).toFixed(0);
+            
+            const badge = document.getElementById('rate-badge');
+            const rateSpan = document.getElementById('val-vietd-rate');
+            
+            if (d.vietdRate === 0.40) {
+                badge.classList.remove('hidden');
+                badge.innerText = "TỐI ƯU";
+                badge.className = "ml-2 px-1.5 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-700 font-bold animate-pulse";
+                rateSpan.className = "font-bold ml-1 text-emerald-600";
+            } else if (d.vietdRate === 0.50) {
+                badge.classList.remove('hidden');
+                badge.innerText = "TIÊU CHUẨN";
+                badge.className = "ml-2 px-1.5 py-0.5 rounded text-[10px] bg-blue-100 text-blue-700 font-bold";
+                rateSpan.className = "font-bold ml-1 text-blue-600";
+            } else {
+                badge.classList.add('hidden');
+                rateSpan.className = "font-bold ml-1 text-slate-600";
+            }
+
+            // Update Chart Data
+            myChart.data.datasets[0].data = [d.costVietD, d.costMkt, d.costOps + d.costRes, d.profit];
+            
+            // Update Chart Labels dynamically
+            myChart.data.labels = [
+                `VietD (${d.vietdRate*100}%)`, 
+                `Marketing (${mktRate*100}%)`, 
+                'Vận Hành & Khác', 
+                'Lợi Nhuận HSU'
+            ];
+            
+            myChart.update();
+        }
+
+        function updateScenario() {
+            let radios = document.getElementsByName('mkt');
+            radios.forEach(r => { if(r.checked) mktRate = parseInt(r.value)/100; });
+            updateDashboard();
+        }
+
+        window.onload = function() {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            myChart = new Chart(ctx, {
+                type: 'doughnut',
                 data: {
-                    labels: ['20 HV', '30 HV', '40 HV'],
+                    labels: [],
                     datasets: [{
-                        label: 'Giá Vốn / Học Viên',
-                        data: [24000000, 20000000, 17000000],
-                        borderColor: '#f59e0b', // Amber
-                        backgroundColor: 'rgba(245, 158, 11, 0.2)',
-                        borderWidth: 3,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#f59e0b',
-                        pointRadius: 6,
-                        fill: true,
-                        tension: 0.3
+                        data: [],
+                        backgroundColor: [
+                            '#0ea5e9', // VietD Blue
+                            '#f59e0b', // Marketing Orange
+                            '#64748b', // Ops Slate
+                            '#10b981'  // Profit Emerald
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: false },
+                        legend: { 
+                            position: 'bottom', 
+                            labels: { usePointStyle: true, font: {family: 'Inter', size: 11}, padding: 20 } 
+                        },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return 'Giá vốn: ' + formatCurrency(context.raw);
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += format(context.parsed);
+                                    }
+                                    return label;
                                 }
                             }
                         }
                     },
-                    scales: {
-                        y: { 
-                            min: 10000000,
-                            ticks: { color: '#94a3b8', callback: function(value) { return value/1000000 + 'Tr'; } },
-                            grid: { color: '#334155' },
-                            title: { display: true, text: 'VNĐ', color: '#64748b' }
-                        },
-                        x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                    cutout: '65%',
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
                     }
                 }
             });
+            updateDashboard(20); // Default to Tier 2 (20 Students) as "Standard"
         }
-
-        function updateCharts(fin) {
-            // Update Profit Chart
-            // We want to visualize: Revenue Bar vs Stacked Cost Bar (VietD + Ops + MKT + Profit)
-            // Actually, let's do a simple waterfall-like visualization using a single stacked bar for "Revenue Distribution"
-            
-            profitChartInstance.data.labels = ['Phân Bổ Doanh Thu'];
-            profitChartInstance.data.datasets = [
-                {
-                    label: 'Trả VietD',
-                    data: [fin.vietdCost],
-                    backgroundColor: '#1e3a8a', // Primary Blue
-                },
-                {
-                    label: 'Marketing',
-                    data: [fin.mktCost],
-                    backgroundColor: '#60a5fa', // Light Blue
-                },
-                {
-                    label: 'Vận Hành',
-                    data: [fin.opsCost],
-                    backgroundColor: '#94a3b8', // Slate
-                },
-                {
-                    label: 'Lợi Nhuận Ròng',
-                    data: [fin.netProfit],
-                    backgroundColor: '#10b981', // Emerald
-                }
-            ];
-            profitChartInstance.update();
-
-            // Update Scale Chart highlight point
-            // We don't change data (curve is static), but we can emphasize the current tier?
-            // For simplicity, let's just keep the curve as reference. 
-            // Advanced: Update point radius for selected tier.
-            const pointRadii = [4, 4, 4];
-            const index = fin.students === 20 ? 0 : fin.students === 30 ? 1 : 2;
-            pointRadii[index] = 10; // Highlight selected
-            scaleChartInstance.data.datasets[0].pointRadius = pointRadii;
-            scaleChartInstance.data.datasets[0].pointHoverRadius = pointRadii.map(r => r + 2);
-            scaleChartInstance.update();
-        }
-
-        // --- MAIN LOGIC ---
-
-        function updateDashboard(tier) {
-            if (tier) currentTier = tier;
-            
-            const financials = calculateFinancials();
-            
-            updateTierButtons();
-            updateMetrics(financials);
-            updateCharts(financials);
-            updateScenarioText();
-        }
-
-        function updateScenario() {
-            const radios = document.getElementsByName('mkt-scenario');
-            for (const radio of radios) {
-                if (radio.checked) {
-                    mktRate = parseInt(radio.value) / 100;
-                    break;
-                }
-            }
-            updateDashboard();
-        }
-
-        // --- INIT ---
-        window.addEventListener('load', () => {
-            initCharts();
-            updateDashboard(30); // Default start
-        });
-
     </script>
     
-    <!-- Visualization & Content Choices:
-         - Methodology: Cards with Icons (Unicode) to separate concepts cleanly.
-         - Financial Dashboard: Dark mode container to make numbers "pop" and feel like a professional trading/strategy tool.
-         - Tier Selector: Big clickable buttons, best for UX comparison.
-         - Charts: 
-            1. Stacked Bar for P&L: Instantly shows HSU "Where the money goes".
-            2. Line Chart: Visualizes the "Cost Curve" dropping, proving the Scale Advantage argument.
+    <!-- Visualization Choices:
+         - Doughnut Chart: Best for showing "Whole vs Parts" budget breakdown.
+         - Tier Buttons: Large tap targets for easy switching during presentation.
+         - Color Coding: Green for Profit/Growth, Blue for Core Revenue/VietD, Orange for Marketing.
+         - Animation: Subtle entrance animations for professional feel.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </body>
